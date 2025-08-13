@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<head>
+<title>Payroll System Login</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c') no-repeat center center/cover;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+    }
+    .login-container {
+        background-color: rgba(0, 0, 0, 0.85);
+        padding: 30px;
+        border-radius: 15px;
+        width: 350px;
+        color: white;
+        box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    h2 {
+        text-align: center;
+        color: #00ffcc;
+    }
+    label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+    }
+    input {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        margin-top: 5px;
+        border-radius: 5px;
+        background: #111;
+        color: white;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 15px;
+        background-color: #00ffcc;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        color: black;
+    }
+    button:hover {
+        background-color: #00e6b8;
+    }
+    .profile {
+        text-align: center;
+        color: white;
+    }
+    .profile img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        margin-top: 10px;
+    }
+    .profile p {
+        margin: 8px 0;
+    }
+</style>
+</head>
+<body>
+
+<div class="login-container" id="loginBox">
+    <h2>Employee Login</h2>
+    <label for="userId">User ID</label>
+    <input type="text" id="userId">
+    
+    <label for="password">Password</label>
+    <input type="password" id="password">
+    
+    <button onclick="login()">Login</button>
+</div>
+
+<div class="login-container profile" id="profileBox" style="display:none;">
+    <h2>Employee Details</h2>
+    <img id="profilePic" src="" alt="Profile Picture">
+    <p><strong>Name:</strong> <span id="fullName"></span></p>
+    <p><strong>Working Days:</strong> <span id="workingDays"></span></p>
+    <p><strong>Basic Salary:</strong> ₹<span id="basicSalary"></span></p>
+    <p><strong>Leave Days:</strong> <span id="leaveDays"></span></p>
+</div>
+
+<script>
+const employees = {
+    "suneel": { password: "2005", fullName: "Suneel", profilePic: "sunnel.jpg", workingDays: 22, basicSalary: 35000, leaveDays: 2 },
+    "srikar": { password: "2006", fullName: "Srikar", profilePic: "srikar.jpg", workingDays: 20, basicSalary: 40000, leaveDays: 3 },
+    "seshidhar": { password: "2007", fullName: "Seshidhar", profilePic: "seshidhar.jpg", workingDays: 25, basicSalary: 45000, leaveDays: 1 },
+    "satish": { password: "2008", fullName: "Satish", profilePic: "satish.jpg", workingDays: 21, basicSalary: 38000, leaveDays: 2 },
+    "nani": { password: "2005", fullName: "Nani", profilePic: "nani.jpg", workingDays: 23, basicSalary: 39000, leaveDays: 3 },
+    "vishnu": { password: "2006", fullName: "Vishnu", profilePic: "reddy.jpg", workingDays: 24, basicSalary: 41000, leaveDays: 1 },
+    "viswa": { password: "2007", fullName: "Viswa", profilePic: "viswa.jpg", workingDays: 19, basicSalary: 37000, leaveDays: 4 },
+    "aditya": { password: "2008", fullName: "Aditya", profilePic: "raju garu.jpg", workingDays: 22, basicSalary: 42000, leaveDays: 2 },
+};
+
+function login() {
+    const userId = document.getElementById('userId').value.toLowerCase();
+    const password = document.getElementById('password').value;
+    
+    if (employees[userId] && employees[userId].password === password) {
+        document.getElementById('loginBox').style.display = 'none';
+        document.getElementById('profileBox').style.display = 'block';
+        
+        document.getElementById('fullName').textContent = employees[userId].fullName;
+        document.getElementById('profilePic').src = employees[userId].profilePic;
+        document.getElementById('workingDays').textContent = employees[userId].workingDays;
+        document.getElementById('basicSalary').textContent = employees[userId].basicSalary;
+        document.getElementById('leaveDays').textContent = employees[userId].leaveDays;
+    } else {
+        alert('Invalid User ID or Password');
+    }
+}
+
+document.getElementById('userId').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        document.getElementById('password').focus();
+    }
+});
+
+document.getElementById('password').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        login();
+    }
+});
+</script>
+
+</body>
+</html>
